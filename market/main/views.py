@@ -4,4 +4,18 @@ from django.shortcuts import render, HttpResponse
 
 
 def homepage(request):
-    return HttpResponse('<h1>Hello</h1>')
+    return render(request, template_name='main/home.html')
+
+
+def itemspage(request):
+    items = [
+        {
+            'name': 'Phone',
+            'price': '500'
+        },
+        {
+            'name': 'Laptop',
+            'price': '1000'
+        }
+    ]
+    return render(request, template_name='main/items.html', context={'items': items})
