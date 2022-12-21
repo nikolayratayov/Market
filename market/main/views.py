@@ -1,5 +1,4 @@
-from django.shortcuts import render, HttpResponse
-
+from django.shortcuts import render
 # Create your views here.
 
 
@@ -8,14 +7,5 @@ def homepage(request):
 
 
 def itemspage(request):
-    items = [
-        {
-            'name': 'Phone',
-            'price': '500'
-        },
-        {
-            'name': 'Laptop',
-            'price': '1000'
-        }
-    ]
-    return render(request, template_name='main/items.html', context={'items': items})
+
+    return render(request, template_name='main/items.html')
