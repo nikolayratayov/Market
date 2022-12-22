@@ -8,3 +8,6 @@ class Item(models.Model):
     price = models.IntegerField()
     description = models.CharField(max_length=1024)
     image_url = models.CharField(max_length=512)
+
+    def __str__(self):
+        return self.name
