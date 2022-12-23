@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Item
 # Create your views here.
 
 
@@ -7,5 +8,5 @@ def homepage(request):
 
 
 def itemspage(request):
-
-    return render(request, template_name='main/items.html')
+    items = Item.objects.all()
+    return render(request, template_name='main/items.html', context={'items': items})
