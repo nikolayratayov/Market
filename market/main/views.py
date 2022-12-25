@@ -10,3 +10,15 @@ def homepage(request):
 def itemspage(request):
     items = Item.objects.all()
     return render(request, template_name='main/items.html', context={'items': items})
+
+
+def loginpage(request):
+    return render(request, template_name='main/login.html')
+
+
+def logoutpage(request):
+    pass
+
+
+def registerpage(requesst):
+    return render(requesst, 'main/register.html')
