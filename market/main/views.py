@@ -15,8 +15,17 @@ def itemspage(request):
 
 
 def loginpage(request):
-    return render(request, template_name='main/login.html')
-
+    if request.method == 'GET':
+        return render(request, template_name='main/login.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('items')
+        else:
+            return redirect('login')
 
 def logoutpage(request):
     pass
