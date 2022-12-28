@@ -27,8 +27,10 @@ def loginpage(request):
         else:
             return redirect('login')
 
+
 def logoutpage(request):
-    pass
+    logout(request)
+    return redirect('home')
 
 
 def registerpage(requesst):
