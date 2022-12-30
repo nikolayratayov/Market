@@ -10,9 +10,11 @@ def homepage(request):
 
 
 def itemspage(request):
-    items = Item.objects.all()
-    return render(request, template_name='main/items.html', context={'items': items})
-
+    if request.method == 'GET':
+        items = Item.objects.all()
+        return render(request, template_name='main/items.html', context={'items': items})
+    if request.method == 'POST':
+        pass
 
 def loginpage(request):
     if request.method == 'GET':
