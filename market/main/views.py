@@ -11,10 +11,15 @@ def homepage(request):
 
 def itemspage(request):
     if request.method == 'GET':
-        items = Item.objects.all()
+        items = Item.objects.filter(owner=None)
         return render(request, template_name='main/items.html', context={'items': items})
     if request.method == 'POST':
-        pass
+        purchased_item = request.POST.get('purchased-item')
+        if purchased_item:
+            purchased_item_object = Item.objects.get(name=purchased_item)
+            purchased_item_object.owner = request.user
+            purchased_item_object.save()
+        return redirect('items')
 
 def loginpage(request):
     if request.method == 'GET':
