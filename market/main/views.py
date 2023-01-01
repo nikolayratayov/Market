@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Item
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 # Create your views here.
 
 
@@ -19,6 +20,7 @@ def itemspage(request):
             purchased_item_object = Item.objects.get(name=purchased_item)
             purchased_item_object.owner = request.user
             purchased_item_object.save()
+            messages.success(request, f'Congratulations. You just bought {purchased_item_object.name} for {purchased_item_object.price}')
         return redirect('items')
 
 def loginpage(request):
