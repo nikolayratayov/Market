@@ -32,13 +32,16 @@ def loginpage(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, f'You are logged in as {user.username}')
             return redirect('items')
         else:
+            messages.error(request, 'The combination of username and password is wrong!')
             return redirect('login')
 
 
 def logoutpage(request):
     logout(request)
+    messages.success(request, f'You have been logged out!')
     return redirect('home')
 
 
@@ -53,7 +56,8 @@ def registerpage(requesst):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(requesst, user)
+            messages.success(requesst, f'You have registered your account successfully! Loged in as {user.username}')
             return redirect('/')
         else:
-
+            messages.error(requesst, form.errors)
             return redirect('register')
