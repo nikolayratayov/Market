@@ -24,13 +24,9 @@
                 </td>
                 <td>{{ item.price }}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary"
-                            data-toggle="modal" data-target="#Modal-MoreInfo{{ item.pk }}">
-                        More Info
-                    </button>
                     <button type="button" class="btn btn-outline-success"
-                            data-toggle="modal" data-target="#Modal-PurchaseConfirm{{ item.pk }}">
-                        Purchase this Item
+                            data-toggle="modal" data-target="#Modal-SellConfirm{{ item.pk }}">
+                        Sell this Item
                     </button>
                     {% include 'main/includes/items_modals.html' %}
                 </td>

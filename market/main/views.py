@@ -28,8 +28,17 @@ def itemspage(request):
 
 
 def myitemspage(request):
-    my_items = Item.objects.filter(owner=not None)
-    return render(request, template_name='main/my_items.html', context={'my_items': my_items})
+    if request.method == 'GET':
+        my_items = Item.objects.filter(owner=request.user)
+        return render(request, template_name='main/my_items.html', context={'my_items': my_items})
+    if request.method == 'POST':
+        sold_item = request.POST.get('sold-item')
+        if sold_item:
+            sold_item_object = Item.objects.get(name=sold_item)
+            sold_item_object.owner = None
+            sold_item_object.save()
+            messages.success(request, f'Congratulations. You just sold {sold_item} for {sold_item_object.price}')
+        return redirect('my_items')
 
 
 def loginpage(request):
