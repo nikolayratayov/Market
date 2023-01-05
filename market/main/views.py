@@ -29,6 +29,9 @@ def itemspage(request):
 
 def myitemspage(request):
     if request.method == 'GET':
+        if not request.user.is_authenticated:
+            messages.success(request, f'You have to log in to check your items!')
+            return redirect('login')
         my_items = Item.objects.filter(owner=request.user)
         return render(request, template_name='main/my_items.html', context={'my_items': my_items})
     if request.method == 'POST':
