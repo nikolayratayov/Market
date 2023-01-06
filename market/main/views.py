@@ -18,7 +18,7 @@ def itemspage(request):
         return render(request, template_name='main/items.html', context={'items': items})
     if request.method == 'POST':
         if not request.user.is_authenticated:
-            messages.error(request, f'You have to log in to buy items!')
+            messages.error(request, f'You have to login to buy items!')
             return redirect('items')
         purchased_item = request.POST.get('purchased-item')
         if purchased_item:
@@ -33,7 +33,7 @@ def itemspage(request):
 def myitemspage(request):
     if request.method == 'GET':
         if not request.user.is_authenticated:
-            messages.error(request, f'You have to log in to check your items!')
+            messages.error(request, f'You have to login to check your items!')
             return redirect('login')
         my_items = Item.objects.filter(owner=request.user)
         return render(request, template_name='main/my_items.html', context={'my_items': my_items})
