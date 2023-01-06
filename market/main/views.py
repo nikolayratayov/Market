@@ -17,6 +17,9 @@ def itemspage(request):
         items = Item.objects.filter(owner=None)
         return render(request, template_name='main/items.html', context={'items': items})
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            messages.error(request, f'You have to log in to buy items!')
+            return redirect('items')
         purchased_item = request.POST.get('purchased-item')
         if purchased_item:
             purchased_item_object = Item.objects.get(name=purchased_item)
@@ -30,7 +33,7 @@ def itemspage(request):
 def myitemspage(request):
     if request.method == 'GET':
         if not request.user.is_authenticated:
-            messages.success(request, f'You have to log in to check your items!')
+            messages.error(request, f'You have to log in to check your items!')
             return redirect('login')
         my_items = Item.objects.filter(owner=request.user)
         return render(request, template_name='main/my_items.html', context={'my_items': my_items})
@@ -53,7 +56,7 @@ def loginpage(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, f'You are logged in as {user.username}')
+            messages.info(request, f'You are logged in as {user.username}')
             return redirect('items')
         else:
             messages.error(request, 'The combination of username and password is wrong!')
@@ -62,7 +65,7 @@ def loginpage(request):
 
 def logoutpage(request):
     logout(request)
-    messages.success(request, f'You have been logged out!')
+    messages.info(request, f'You have been logged out!')
     return redirect('home')
 
 
@@ -77,7 +80,7 @@ def registerpage(requesst):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(requesst, user)
-            messages.success(requesst, f'You have registered your account successfully! Loged in as {user.username}')
+            messages.success(requesst, f'You have registered your account successfully! Logged in as {user.username}')
             return redirect('/')
         else:
             messages.error(requesst, form.errors)
