@@ -36,6 +36,10 @@
                 <a class="btn btn-sm btn-secondary" href="{% url 'register' %}">Register</a>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            {% load socialaccount %}
+            <h5>
+                <a href="{% provider_login_url 'google' %}">Login with Google</a>
+            </h5>
         </form>
     </body>
 {% endblock %}
