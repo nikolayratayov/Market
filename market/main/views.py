@@ -19,7 +19,7 @@ def itemspage(request):
     if request.method == 'POST':
         if not request.user.is_authenticated:
             messages.error(request, f'You have to login to buy items!')
-            return redirect('items')
+            return redirect('login')
         purchased_item = request.POST.get('purchased-item')
         if purchased_item:
             purchased_item_object = Item.objects.get(name=purchased_item)
